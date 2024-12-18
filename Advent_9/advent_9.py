@@ -15,8 +15,6 @@ digit_list = []
 
 file_content = 0
 
-test=123212312
-
 turn = "file_s"
 
 for num in digit_string:
