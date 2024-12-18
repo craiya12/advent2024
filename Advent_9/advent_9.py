@@ -5,7 +5,7 @@ import re
 import copy
 
 # Define the file path
-file_path = "advent_9_test.txt"
+file_path = "advent_9.txt"
 
 # Open the file and read the content
 with open(file_path, "r") as file:
@@ -42,7 +42,7 @@ for num in digit_string:
         else:
             turn = "file_s"
 
-print(digit_list)
+# print(digit_list)
 
 # print(''.join(digit_list))
 
@@ -56,36 +56,43 @@ while backward == True:
     i = 0
 
     forward = True
-
+    #print('changing j:',j, progress_list[j])
     while forward == True:
 
-        if j < 0:
+        if len(progress_list) + j <= 0:
             backward = False
             break
 
+        if i == len(progress_list) + j:
+            break
+        
+
         if (
-            len(progress_list.reversed[j]) < len(progress_list[i])
+            len(progress_list[j]) <= len(progress_list[i])
             and progress_list[i][0] == "."
+            and progress_list[j][0] != "."
         ):
 
+            # print(j, progress_list[j], len(progress_list[j]), len(progress_list[i]))
             final_list = []
             for k in progress_list:
                 for l in k:
                     final_list.append(l)
-            print("".join(final_list))
+            # print("".join(final_list))
 
-            transfer_list = progress_list.reversed[j].copy()
+            transfer_list = progress_list[j].copy()
 
-            for m in range(len(progress_list.reversed[j])):
+            for m in range(len(progress_list[j])):
                 progress_list[j][m] = "."
 
             progress_list.insert(i, transfer_list)
 
             for k in range(len(transfer_list)):
                 progress_list[i + 1].remove(".")
+            if len(progress_list[i+1])==0:
+                del progress_list[i+1]
 
-            print(j)
-            print(progress_list)
+            # print(progress_list)
 
             forward = False
         elif i + 1 > len(progress_list):
@@ -103,4 +110,17 @@ for k in progress_list:
         final_list.append(l)
 
 
-print("".join(final_list))
+#print("".join(final_list))
+#print(final_list)
+
+
+total_sum=0
+
+for i,item in enumerate(final_list):
+    if item=='.':
+        continue
+    total_sum=total_sum+i*int(item)
+        
+#print(''.join(progress_list))
+print(total_sum)
+
